@@ -3,7 +3,8 @@ from django.conf import settings
 
 
 class QrCode(models.Model):
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    img_path = models.FilePathField(path='/static/img')
 
     def __str__(self):
-        return self.user_id
+        return f'{self.user_id} {self.img_path}'

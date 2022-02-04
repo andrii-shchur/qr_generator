@@ -1,0 +1,11 @@
+{% extends 'backend/base.html' %}
+
+{% block content %}
+    {% load static %}
+    <h1>Hello, {{ user.username }}!!!</h1>
+    <h4>Date joined: {{ user.date_joined }}</h4>
+    <h2>Saved QR Codes:</h2>
+    {% for code in codes %}
+        <img src="{{ code }}">
+    {% endfor %}
+{% endblock %}

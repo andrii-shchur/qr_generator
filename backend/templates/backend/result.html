@@ -2,5 +2,10 @@
 
 {% block content %}
     {% load static %}
-    <img src="{% static '/img/code.png' %}"/>
+    <img src="{{ img_path }}"/>
+    <form action="/save-code/" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="img-path" value={{ img_path }}>
+        <input type="submit" value="Save">
+    </form>
 {% endblock %}
