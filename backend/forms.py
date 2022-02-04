@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
 class SubmitForm(forms.Form):
@@ -16,6 +18,10 @@ class SignInForm(forms.Form):
     password = forms.CharField(label='Password:', max_length=32, widget=forms.PasswordInput)
 
 
-class RegisterForm(forms.Form):
-    login = forms.CharField(label='Login:', max_length=32)
-    password = forms.CharField(label='Password:', max_length=32, widget=forms.PasswordInput)
+class RegisterForm(UserCreationForm):
+    # login = forms.CharField(label='Login:', max_length=32)
+    # email = forms.EmailField(label='Email:')
+    # password = forms.CharField(label='Password:', max_length=32, widget=forms.PasswordInput)
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']

@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from generator import make_code
 
 from .forms import SubmitForm, SignInForm, RegisterForm
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+from django.contrib import messages
+from .models import QrCode
 
 
 def index(request):
@@ -33,8 +36,11 @@ def sign_in_page(request):
 
 def register_page(request):
     form = RegisterForm()
+
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(sign_in_page)
+
     return render(request, 'backend/register-page.html', {'form': form})
-
-
-def sign_in(request):
-    user = User.objects.create_user()
