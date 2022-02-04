@@ -72,7 +72,6 @@ def profile(request):
     codes = []
     for el in query:
         codes.append(el.img_path)
-    print(codes)
     return render(request, 'backend/profile.html', {'codes': codes})
 
 
@@ -80,5 +79,5 @@ def save_code(request):
     new_code = QrCode(user=request.user, img_path=request.POST.get('img-path'))
     new_code.save()
     messages.success(request, 'Successfully saved!')
-    return render(request, 'backend/result.html')
+    return render(request, 'backend/result.html', {'img_path': request.POST.get('img-path')})
 
