@@ -2,10 +2,18 @@
 
 {% block content %}
     {% load static %}
+    {% load humanize %}
     <h1>Hello, {{ user.username }}!!!</h1>
-    <h4>Date joined: {{ user.date_joined }}</h4>
+    <h4>Date joined: {{ user.date_joined|naturaltime }}</h4>
     <h2>Saved QR Codes:</h2>
-    {% for code in codes %}
-        <img src="{{ code }}">
-    {% endfor %}
+    <table>
+        {% for el in data %}
+        {% cycle '<tr>' '' '' '' %}
+        <td>
+            <img src="{{ el.0 }}" width="350" height="350">
+            <h4>{{ el.1|naturaltime  }}</h4>
+        </td>
+        {% cycle '' '' '' '</tr>' %}
+        {% endfor %}
+    </table>
 {% endblock %}

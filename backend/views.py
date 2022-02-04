@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from generator import make_code
-
-from .forms import SubmitForm, SignInForm, RegisterForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from django.utils import timezone
+
 from .models import QrCode
+from .forms import SubmitForm, SignInForm, RegisterForm
+from generator import make_code
 
 import uuid
 
@@ -29,8 +30,8 @@ def submit(request):
             img_path = f'/static/img/{uuid.uuid4().hex}.png'
             make_code(text, box_size=box_size, border=border, back_color=back_color, fill_color=fill_color,
                       filename=img_path)
-
-            return render(request, 'backend/result.html', {'img_path': img_path})
+            print(f'dslfjds: {timezone.now()}')
+            return render(request, 'backend/result.html', {'img_path': img_path, 'created_at': str(timezone.now())})
 
 
 def login_page(request):
@@ -69,15 +70,19 @@ def logout_page(request):
 
 def profile(request):
     query = QrCode.objects.filter(user=request.user)
-    codes = []
+    data = []
     for el in query:
-        codes.append(el.img_path)
-    return render(request, 'backend/profile.html', {'codes': codes})
+        data.append((el.img_path, el.created_at))
+    return render(request, 'backend/profile.html', {'data': data})
 
 
 def save_code(request):
-    new_code = QrCode(user=request.user, img_path=request.POST.get('img-path'))
+    img_path = request.POST.get('img-path')
+    created_at = request.POST.get('created-at')
+    print(created_at)
+    new_code = QrCode(user=request.user, img_path=img_path, created_at=created_at)
     new_code.save()
     messages.success(request, 'Successfully saved!')
-    return render(request, 'backend/result.html', {'img_path': request.POST.get('img-path')})
+
+    return render(request, 'backend/index.html', {'form': SubmitForm()})
 
