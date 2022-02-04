@@ -4,7 +4,7 @@ from generator import make_code
 
 from .forms import SubmitForm, SignInForm, RegisterForm
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .models import QrCode
 
@@ -29,18 +29,35 @@ def submit(request):
             return render(request, 'backend/result.html')
 
 
-def sign_in_page(request):
+def login_page(request):
     form = SignInForm()
+
+    if request.method == 'POST':
+        form = SignInForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request=request, user=user)
+                messages.info(request, f"You are now logged in as {username}.")
+                return redirect(index)
+
     return render(request, 'backend/signin-page.html', {'form': form})
 
 
-def register_page(request):
+def register(request):
     form = RegisterForm()
 
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(sign_in_page)
+            return redirect(login_page)
 
     return render(request, 'backend/register-page.html', {'form': form})
+
+
+def logout_page(request):
+    logout(request)
+    return redirect(index)
