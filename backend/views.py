@@ -30,7 +30,6 @@ def submit(request):
             img_path = f'/static/img/{uuid.uuid4().hex}.png'
             make_code(text, box_size=box_size, border=border, back_color=back_color, fill_color=fill_color,
                       filename=img_path)
-            print(f'dslfjds: {timezone.now()}')
             return render(request, 'backend/result.html', {'img_path': img_path, 'created_at': str(timezone.now())})
 
 
@@ -79,7 +78,6 @@ def profile(request):
 def save_code(request):
     img_path = request.POST.get('img-path')
     created_at = request.POST.get('created-at')
-    print(created_at)
     new_code = QrCode(user=request.user, img_path=img_path, created_at=created_at)
     new_code.save()
     messages.success(request, 'Successfully saved!')

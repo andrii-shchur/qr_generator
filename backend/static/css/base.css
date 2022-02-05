@@ -1,0 +1,15 @@
+body {
+    padding-top: 70px;
+}
+
+.navbar-brand, .nav-link {
+    margin-left: 10px;
+}
+
+#navbarNav, #navbarToggler {
+    margin-right: 10px;
+}
+
+#secLogoPart {
+    color: #d78b02
+}
