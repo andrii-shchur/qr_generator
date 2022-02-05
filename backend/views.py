@@ -82,5 +82,5 @@ def save_code(request):
     new_code.save()
     messages.success(request, 'Successfully saved!')
 
-    return render(request, 'backend/index.html', {'form': SubmitForm()})
+    return redirect(index)
 

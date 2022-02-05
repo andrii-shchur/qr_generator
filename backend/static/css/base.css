@@ -1,5 +1,6 @@
 body {
     padding-top: 70px;
+    background-color: #f3f0eb !important;
 }
 
 .navbar-brand, .nav-link {
@@ -11,5 +12,5 @@ body {
 }
 
 #secLogoPart {
-    color: #d78b02
+    color: #d78b02;
 }

@@ -5,8 +5,8 @@
     <img src="{{ img_path }}"/>
     <form action="/save-code/" method="POST">
         {% csrf_token %}
-        <input type="hidden" name="img-path" value={{ img_path }}>
-        <input type="hidden" name="created-at" value={{ created_at }}>
+        <input type="hidden" name="img-path" value="{{ img_path }}">
+        <input type="hidden" name="created-at" value="{{ created_at }}">
         <input type="submit" value="Save">
     </form>
 {% endblock %}

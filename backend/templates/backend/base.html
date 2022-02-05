@@ -22,14 +22,14 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link" href="https://github.com/andrii-shchur"><i class="bi-github"></i></a>
+                  <a class="nav-link" href="https://github.com/andrii-shchur" title="Authors GitHub"><i class="bi-github"></i></a>
                 </li>
             </ul>
 
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/profile/">{{ user.username }}</a>
+                        <a class="nav-link" href="/profile/" title="Your account">{{ user.username }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout/">Log out</a>
