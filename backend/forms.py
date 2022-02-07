@@ -15,12 +15,26 @@ class SubmitForm(forms.Form):
 
 
 class SignInForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(SignInForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-lg-2'
+        self.helper.field_class = 'col-lg-10'
+
     class Meta:
         model = User
         fields = ['username', 'password']
 
 
 class RegisterForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super(RegisterForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-lg-2'
+        self.helper.field_class = 'col-lg-10'
+
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']

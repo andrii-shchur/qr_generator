@@ -1,10 +1,28 @@
 {% extends 'backend/base.html' %}
+{% load crispy_forms_filters %}
 
 {% block content %}
     <form action="" method="POST">
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Sign in">
+        <div class="row">
+            <div class="col-8 offset-2 col-lg-4 offset-lg-4">
+                <div class="row">
+                    <div class="col gy-3">
+                        {{ form.username|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col gy-3">
+                        {{ form.password|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col gy-3">
+                        <button id="loginButton" type="submit" class="btn btn-primary mb-2" style="background-color: #4256a8; border: none;">Sign in</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
-    {{ form.errors }}
+    {{ form.errors|striptags }}
 {% endblock %}
