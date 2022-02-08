@@ -33,8 +33,19 @@ def submit(request):
                       filename=img_path)
             return render(request, 'backend/result.html', {'img_path': img_path, 'created_at': str(timezone.now())})
 
+        messages.add_message(request, messages.ERROR, 'Invalid input!')
+        return redirect(index)
+
+    else:
+        messages.add_message(request, messages.ERROR, 'Error!')
+        return redirect(index)
+
 
 def login_page(request):
+    if request.user.is_authenticated:
+        messages.add_message(request, messages.ERROR, 'You have already logged in!')
+        return redirect(index)
+
     form = SignInForm()
 
     if request.method == 'POST':
@@ -48,10 +59,18 @@ def login_page(request):
                 messages.add_message(request, messages.INFO, f"You are now logged in as {username}.")
                 return redirect(index)
 
+    elif request.method == 'GET':
+        if request.GET.get('next') in ['/profile/', '/save-code/']:
+            messages.add_message(request, messages.WARNING, 'You must log in first.')
+
     return render(request, 'backend/signin-page.html', {'form': form})
 
 
 def register(request):
+    if request.user.is_authenticated:
+        messages.add_message(request, messages.ERROR, 'You can\'t create accounts while logged in!')
+        return redirect(index)
+
     form = RegisterForm()
 
     if request.method == 'POST':
@@ -64,7 +83,12 @@ def register(request):
 
 
 def logout_page(request):
+    if not request.user.is_authenticated:
+        messages.add_message(request, messages.SUCCESS, 'lmao')
+        return redirect(index)
+
     logout(request)
+    messages.add_message(request, messages.INFO, 'Logged out.')
     return redirect(index)
 
 
@@ -74,7 +98,7 @@ def profile(request):
     data = []
     for el in query:
         data.append((el.img_path, el.created_at))
-    return render(request, 'backend/profile.html', {'data': data})
+    return render(request, 'backend/profile.html', {'data': reversed(data)})
 
 
 @login_required

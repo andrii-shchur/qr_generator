@@ -5,7 +5,7 @@ from crispy_forms.helper import FormHelper
 
 
 class SubmitForm(forms.Form):
-    text = forms.CharField(label='Text:', widget=forms.Textarea(attrs={'rows': 5, 'cols': 20, 'data-length': 2048}))
+    text = forms.CharField(label='Text:', widget=forms.Textarea(attrs={'rows': 5, 'cols': 20}), max_length=2048)
     box_size = forms.IntegerField(label='Box size:', min_value=1, max_value=50, initial=10)
     border = forms.IntegerField(label='Border size:', min_value=0, max_value=10, initial=5)
     back_color = forms.CharField(label='Background:', widget=forms.TextInput(attrs={'type': 'color'}),

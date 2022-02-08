@@ -3,17 +3,26 @@
 {% block content %}
     {% load static %}
     {% load humanize %}
-    <h1>Hello, {{ user.username }}!!!</h1>
-    <h4>Date joined: {{ user.date_joined|naturaltime }}</h4>
-    <h2>Saved QR Codes:</h2>
-    <table>
+    <div class="row text-center">
+        <h1>Hello, {{ user.username }}!</h1>
+    </div>
+    <div class="row text-center">
+        <h6>Joined: {{ user.date_joined|naturaltime }}</h6>
+    </div>
+    <div class="row text-center">
+        <h2>Saved QR Codes:</h2>
+    </div>
+    <div class="row">
         {% for el in data %}
-        {% cycle '<tr>' '' '' '' %}
-        <td>
-            <img src="{{ el.0 }}" width="350" height="350">
-            <h4>{{ el.1|naturaltime }}</h4>
-        </td>
-        {% cycle '' '' '' '</tr>' %}
+        <div class="col gy-3 d-flex justify-content-center">
+            <div class="card" style="width: 350px;">
+                <img class="card-img-top" src="{{ el.0 }}" width="350" height="350">
+                <div class="card-body">
+                    <p class="card-text">{{ el.1|naturaltime }}</p>
+                    <a href="#" class="btn btn-primary" style="background-color: #4256a8; border: none;">Download</a>
+                </div>
+            </div>
+        </div>
         {% endfor %}
-    </table>
+    </div>
 {% endblock %}
