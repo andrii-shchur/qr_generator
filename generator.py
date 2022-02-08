@@ -15,4 +15,4 @@ def make_code(text, error_correction_lvl=ERROR_CORRECT_M, back_color='#ffffff',
     qr.make(fit=True)
 
     img = qr.make_image(fill_color=fill_color, back_color=back_color)
-    img.save(f'backend{filename}')
+    img.save(f'/backend{filename}')
