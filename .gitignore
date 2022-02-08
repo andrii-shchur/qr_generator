@@ -115,3 +115,4 @@ dmypy.json
 
 # images
 backend/static/img/*
+!code.png
