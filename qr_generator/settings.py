@@ -1,5 +1,8 @@
+import os
 from pathlib import Path
 from django.contrib.messages import constants as messages
+from decouple import config
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,12 +12,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-68&u!o)n^c&ubb2c(l5gfu3kbz^!vn7q&#jw#(!76wh$2ekk%8'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.110']
+ALLOWED_HOSTS = ['qr-code-generator11.herokuapp.com', '192.168.0.110', '127.0.0.1']
 
 
 # Application definition
@@ -110,6 +113,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -125,3 +129,5 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+django_heroku.settings(locals())
