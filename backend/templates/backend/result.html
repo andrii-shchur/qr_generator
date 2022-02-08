@@ -8,7 +8,11 @@
             {% csrf_token %}
             <input type="hidden" name="img-path" value="{{ img_path }}">
             <input type="hidden" name="created-at" value="{{ created_at }}">
-            <button id="saveButton" type="submit" class="btn btn-primary mb-2" style="background-color: #4256a8; border: none;">Save</button>
+            <div class="row">
+                <div class="col gy-4">
+                    <button id="saveButton" type="submit" class="btn btn-primary mb-2" style="background-color: #4256a8; border: none;">Save</button>
+                </div>
+            </div>
         </form>
     </div>
 {% endblock %}

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 from .models import QrCode
 from .forms import SubmitForm, SignInForm, RegisterForm
@@ -44,7 +45,7 @@ def login_page(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request=request, user=user)
-                messages.info(request, f"You are now logged in as {username}.")
+                messages.add_message(request, messages.INFO, f"You are now logged in as {username}.")
                 return redirect(index)
 
     return render(request, 'backend/signin-page.html', {'form': form})
@@ -67,6 +68,7 @@ def logout_page(request):
     return redirect(index)
 
 
+@login_required
 def profile(request):
     query = QrCode.objects.filter(user=request.user)
     data = []
@@ -75,12 +77,13 @@ def profile(request):
     return render(request, 'backend/profile.html', {'data': data})
 
 
+@login_required
 def save_code(request):
     img_path = request.POST.get('img-path')
     created_at = request.POST.get('created-at')
     new_code = QrCode(user=request.user, img_path=img_path, created_at=created_at)
     new_code.save()
-    messages.success(request, 'Successfully saved!')
+    messages.add_message(request, messages.SUCCESS, 'Successfully saved!')
 
     return redirect(index)
 
