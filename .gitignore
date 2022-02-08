@@ -114,4 +114,4 @@ dmypy.json
 .pyre/
 
 # images
-backend/static/img
+backend/static/img/*
