@@ -11,6 +11,7 @@ from .forms import SubmitForm, SignInForm, RegisterForm
 from generator import make_code
 
 import uuid
+import mimetypes
 
 
 def index(request):
@@ -84,7 +85,7 @@ def register(request):
 
 def logout_page(request):
     if not request.user.is_authenticated:
-        messages.add_message(request, messages.SUCCESS, 'lmao')
+        messages.add_message(request, messages.ERROR, 'bruh wtf')
         return redirect(index)
 
     logout(request)
@@ -97,7 +98,7 @@ def profile(request):
     query = QrCode.objects.filter(user=request.user)
     data = []
     for el in query:
-        data.append((el.img_path, el.created_at))
+        data.append((el.img_path, el.created_at, el.img_path))
     return render(request, 'backend/profile.html', {'data': reversed(data)})
 
 
@@ -108,6 +109,4 @@ def save_code(request):
     new_code = QrCode(user=request.user, img_path=img_path, created_at=created_at)
     new_code.save()
     messages.add_message(request, messages.SUCCESS, 'Successfully saved!')
-
     return redirect(index)
-

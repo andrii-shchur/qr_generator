@@ -5,7 +5,7 @@
     <form action="" method="POST">
         {% csrf_token %}
         <div class="row">
-            <div class="col-8 offset-2 col-lg-4 offset-lg-4">
+            <div class="col-10 offset-1 col-lg-4 offset-lg-4">
                 <div class="row">
                     <div class="col gy-3">
                         {{ form.username|as_crispy_field }}
@@ -27,5 +27,5 @@
             </div>
         </div>
     </form>
-    {{ form.errors|striptags }}
+    {{ form.non_field_errors }}
 {% endblock %}
