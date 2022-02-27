@@ -13,6 +13,14 @@ from generator import make_code
 import uuid
 import mimetypes
 
+from django.views.decorators.csrf import csrf_exempt
+
+
+@csrf_exempt
+def get_ip(request):
+    print(request.META.get('REMOTE_ADDR'))
+    return
+
 
 def index(request):
     form = SubmitForm()
