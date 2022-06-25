@@ -3,7 +3,7 @@
 {% block content %}
     {% load static %}
     <div class="col-12 text-center">
-        <img src="{{ img_path }}" width="350" height="350"/>
+        <img src="{{ img_path }}" width="350" height="350" alt="Result"/>
         <form action="/save-code/" method="POST">
             {% csrf_token %}
             <input type="hidden" name="img-path" value="{{ img_path }}">

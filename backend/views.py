@@ -1,6 +1,4 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.utils import timezone
@@ -11,7 +9,6 @@ from .forms import SubmitForm, SignInForm, RegisterForm
 from generator import make_code
 
 import uuid
-import mimetypes
 
 
 def index(request):

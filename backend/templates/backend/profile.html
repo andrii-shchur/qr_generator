@@ -16,7 +16,7 @@
         {% for el in data %}
         <div class="col gy-3 d-flex justify-content-center">
             <div class="card" style="width: 350px;">
-                <img class="card-img-top" src="{{ el.0 }}" width="350" height="350">
+                <img class="card-img-top" src="{{ el.0 }}" width="350" height="350" alt="Saved QR Code">
                 <div class="card-body">
                     <p class="card-text">{{ el.1|naturaltime }}</p>
                     <a href="{{ el.2 }}" download class="btn btn-primary" style="background-color: #4256a8; border: none;">Download</a>
